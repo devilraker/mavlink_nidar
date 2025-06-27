@@ -1,0 +1,25 @@
+while not vehicle.armed:
+        print("Waiting for arming ..")
+        time.sleep(1)
+
+print("drone is aarmed")
+
+target_altitude=10
+print(f"Taking off to {target_altitude} meters..")
+vehicle.simple_takeoff(target_altitude)
+
+
+while True:
+        current_alt= vehicle.location.global_relative_frame.alt
+        print("Alrtitude:" ,current_alt)
+        if current_alt >= target_altitude * 0.95:
+                print("targed alt eachhed")
+                break
+        time.sleep(1)
+
+time.sleep(5)
+print("taking to return to launch")
+vehicle.mode = VehicleMode("RTL")
+
+time.sleep(10)
+vehicle.close()
