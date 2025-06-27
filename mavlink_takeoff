@@ -1,3 +1,17 @@
+from dronekit import connect,VehicleMode
+import time
+
+print("connecting to vehicle on local host ")
+vehicle = connect('/dev/ttyACM0',wait_ready=True)
+
+print("Setting mode to GUIDED...")
+vehicle.mode=VehicleMode("GUIDED")
+
+while not vehicle.mode.name=='GUIDED':
+        print("WAiting for mode change ...")
+        time.sleep(1)
+
+vehicle.armed = True
 while not vehicle.armed:
         print("Waiting for arming ..")
         time.sleep(1)
